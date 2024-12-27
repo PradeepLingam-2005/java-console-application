@@ -10,10 +10,10 @@ public class ATM {
     static ArrayList<String> transactions = new ArrayList<>();
     private static ArrayList<Notes> notes = new ArrayList<>(
             Arrays.asList(
-                    new Hundred("100",0),
-                    new TwoHundred("200",0),
+                    new TwoThousand("2000",0),
                     new FiveHundred("500",0),
-                    new TwoThousand("2000",0)
+                    new TwoHundred("200",0),
+                    new Hundred("100",0)
             )
     );
     static ArrayList<Notes> getNote()
