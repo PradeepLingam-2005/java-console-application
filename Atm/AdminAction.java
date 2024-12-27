@@ -112,10 +112,16 @@ public class AdminAction {
                 double Nc;
                 for (Notes tnotes:ATM.getNote())
                 {
-                    if(tnotes.getNote().equals("100"))
+                    if(tnotes.getNote().equals("2000"))
                     {
                         Oc=tnotes.getCount();
-                        Nc=Oc+t100;
+                        Nc=Oc+t2000;
+                        tnotes.setCount(Nc);
+                    }
+                    else if(tnotes.getNote().equals("500"))
+                    {
+                        Oc=tnotes.getCount();
+                        Nc=Oc+t500;
                         tnotes.setCount(Nc);
                     }
                     else if(tnotes.getNote().equals("200"))
@@ -124,16 +130,10 @@ public class AdminAction {
                         Nc=Oc+t200;
                         tnotes.setCount(Nc);
                     }
-                    else if(tnotes.getNote().equals("500"))
+                    else if(tnotes.getNote().equals("100"))
                     {
                         Oc=tnotes.getCount();
-                        Nc=Oc+t200;
-                        tnotes.setCount(Nc);
-                    }
-                    else if(tnotes.getNote().equals("2000"))
-                    {
-                        Oc=tnotes.getCount();
-                        Nc=Oc+t200;
+                        Nc=Oc+t100;
                         tnotes.setCount(Nc);
                     }
                 }
@@ -200,6 +200,4 @@ public class AdminAction {
         }
 
     }
-
-
 }
