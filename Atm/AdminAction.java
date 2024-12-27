@@ -106,8 +106,6 @@ public class AdminAction {
         System.out.println("Enter the deposit amount: ");
         double atmBal = Double.parseDouble(in.nextLine());
         if (atmBal>0){
-            ATM.setbal(atmBal+ATM.getbal());
-            String temp =" "+Ad.getId()+" Deposited " + atmBal;
             System.out.println("number of 2000 rupees notes");
             int t2000 = Integer.parseInt(in.nextLine());
             System.out.println("number of 500 rupees notes");
@@ -148,6 +146,9 @@ public class AdminAction {
                     }
                 }
             }
+            System.out.println(" Deposited :" + atmBal);
+            ATM.setbal(atmBal+ATM.getbal());
+            String temp =" "+Ad.getId()+" Deposited " + atmBal;
             Ad.settransactions(temp);
 
         }
