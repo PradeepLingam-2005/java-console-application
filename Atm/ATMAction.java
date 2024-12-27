@@ -9,7 +9,7 @@ public class ATMAction {
 
         while (true){
             System.out.println("Welcome to the ATM!");
-            System.out.println("admin or user");
+            System.out.println("admin or user (exit to stop) ");
             String temp = in.nextLine().toLowerCase();
             if(temp.equals("user")){
                 String login = ATM.getuserobj().login(ATM.getuserarr());
@@ -54,6 +54,7 @@ public class ATMAction {
                 }
             }
             else if (temp.equals("exit")) {
+                System.out.println("thank you for using the ATM");
                 break;
             }
             else {
