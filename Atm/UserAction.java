@@ -95,10 +95,16 @@ public class UserAction {
                 double Nc;
                 for (Notes tnotes:ATM.getNote())
                 {
-                    if(tnotes.getNote().equals("100"))
+                    if(tnotes.getNote().equals("2000"))
                     {
                         Oc=tnotes.getCount();
-                        Nc=Oc+t100;
+                        Nc=Oc+t2000;
+                        tnotes.setCount(Nc);
+                    }
+                    else if(tnotes.getNote().equals("500"))
+                    {
+                        Oc=tnotes.getCount();
+                        Nc=Oc+t500;
                         tnotes.setCount(Nc);
                     }
                     else if(tnotes.getNote().equals("200"))
@@ -107,22 +113,17 @@ public class UserAction {
                         Nc=Oc+t200;
                         tnotes.setCount(Nc);
                     }
-                    else if(tnotes.getNote().equals("500"))
+                    else if(tnotes.getNote().equals("100"))
                     {
                         Oc=tnotes.getCount();
-                        Nc=Oc+t200;
-                        tnotes.setCount(Nc);
-                    }
-                    else if(tnotes.getNote().equals("2000"))
-                    {
-                        Oc=tnotes.getCount();
-                        Nc=Oc+t200;
+                        Nc=Oc+t100;
                         tnotes.setCount(Nc);
                     }
                 }
             }
             ATM.setbal(atmBal + ATM.getbal());
             String temp = " " + us.getId() + " Deposited " + atmBal;
+            us.setbal(us.getbal()+atmBal);
             us.settransactions(temp);
             ATM.settransactions(temp);
         }
@@ -175,27 +176,49 @@ public class UserAction {
             copy.add(note.clone());
         }
         System.out.println("enter the amount");
-        double temp = Double.parseDouble(in.nextLine());
+        double tamt = Double.parseDouble(in.nextLine());
+        double withamount = tamt;
 
-        if (temp < 0) {
+        if (tamt < 0) {
             System.out.println("invalid  balance.");
-        } else if (temp >= ATM.getbal()) {
+            return;
+        } else if (tamt >= ATM.getbal()) {
             System.out.println("insufficient balance in Atm.");
+            return;
+        } else if (tamt > us.getbal()) {
+            System.out.println("insufficient balance");
+            return;
         }
-        for (int i =0 ;i <ATM.getuserarr().size();i++){
-            if(ATM.getuserarr().get(i).getId())
+        while (tamt > 0) {
+            for (Notes notes : copy) {
+                switch (notes.getNote()) {
+                    case "2000", "500", "200", "100":
+                        double remain = preformwithdraw(tamt, notes, denomination);
+                        if (remain < tamt) {
+                            tamt = remain;
+                        }
+                }
+                if (tamt == 0) {
+                    double olbal = us.getbal();
+                    double nbal = olbal - withamount;
+                    us.setbal(nbal);
+                    break;
+                }
+            }
         }
+        if (tamt == 0) {
+            ATM.setNote(copy);
 
+            for (var temp : denomination) {
+                System.out.println(temp);
+            }
+            String arr = " " + us.getId() + " withdraw " + withamount;
+            us.settransactions(arr);
+            ATM.settransactions(arr);
+        } else {
+            System.out.println("Unable to withdraw the full amount. Please try another value.");
 
-//        else {
-//            ATM.setbal(ATM.getbal() - temp);
-//            double ntemp = us.getbal() - temp;
-//            us.setbal(ntemp);
-//            System.out.println("Amount credited successfully.");
-//        }
-//        String arr=" "+us.getId()+" withdraw " + temp;
-//        us.settransactions(arr);
-//        ATM.settransactions(arr);
+        }
     }
 
     private void balance(User us) {
